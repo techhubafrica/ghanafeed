@@ -3,10 +3,9 @@ import { archiveQuery } from "@/lib/ghanafeed.queries";
 import { ArchiveView } from "@/components/site/ArchiveView";
 
 export const Route = createFileRoute("/c/$slug")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    page: Number(search.page ?? 1) || 1,
-  }),
-  loaderDeps: ({ search }) => ({ page: search.page }),
+  validateSearch: (search: Record<string, unknown>): { page?: number } =>
+    search.page ? { page: Number(search.page) || 1 } : {},
+  loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
   loader: async ({ context, params, deps }) => {
     const data = await context.queryClient.ensureQueryData(
       archiveQuery("category", params.slug, deps.page),
@@ -33,6 +32,6 @@ export const Route = createFileRoute("/c/$slug")({
 
 function CategoryPage() {
   const { slug } = Route.useParams();
-  const { page } = Route.useSearch();
+  const page = Route.useSearch().page ?? 1;
   return <ArchiveView kind="category" value={slug} page={page} eyebrow="Section" />;
 }
