@@ -1,19 +1,23 @@
 import { createRouter } from "@tanstack/react-router";
+import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import type { AuthState } from "./hooks/use-auth";
 
 export const getRouter = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60,
+        retry: 1,
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
   const router = createRouter({
     routeTree,
-    context: {
-      auth: {
-        isAuthenticated: false,
-        user: null,
-        session: null,
-        isLoading: true,
-      } as AuthState,
-    },
+    context: { queryClient },
     scrollRestoration: true,
+    defaultPreload: "intent",
     defaultPreloadStaleTime: 0,
   });
 
