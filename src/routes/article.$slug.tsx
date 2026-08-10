@@ -124,6 +124,7 @@ function ArticlePage() {
               <img
                 src={article.image}
                 alt={article.imageAlt || article.title}
+                referrerPolicy="no-referrer"
                 className="w-full rounded-sm border border-border object-cover"
                 loading="eager"
               />

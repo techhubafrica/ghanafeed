@@ -66,6 +66,7 @@ function Cover({
       src={article.image}
       alt={article.imageAlt}
       sizes={sizes}
+      referrerPolicy="no-referrer"
       loading={eager ? "eager" : "lazy"}
       decoding="async"
       className={cn("h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]", className)}
