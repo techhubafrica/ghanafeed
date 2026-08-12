@@ -194,6 +194,37 @@ html {
   font-size: 1.0625rem;
   line-height: 1.8;
   color: color-mix(in oklab, var(--foreground) 88%, transparent);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+/* WP posts often ship hard-coded colours/sizes; force them onto the theme. */
+.article-body *:not(a) {
+  color: inherit !important;
+  background-color: transparent !important;
+  max-width: 100% !important;
+  font-family: inherit !important;
+}
+.article-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.article-body td,
+.article-body th {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+}
+.article-body pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+@media (max-width: 640px) {
+  .article-body {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
 }
 .article-body > * + * {
   margin-top: 1.15rem;
@@ -264,4 +295,16 @@ html {
 }
 .article-body iframe {
   aspect-ratio: 16 / 9;
+}
+
+.article-body h2,
+.article-body h3,
+.article-body h4,
+.article-body strong,
+.article-body b,
+.article-body blockquote {
+  color: var(--foreground) !important;
+}
+.article-body a {
+  color: var(--gf-red) !important;
 }
