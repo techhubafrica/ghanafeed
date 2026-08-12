@@ -27,7 +27,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { title: "GhanaFeed — Fearless Journalism" },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "author", content: "GhanaFeed" },
-      { name: "theme-color", content: "#0d0d0c" },
+      { name: "theme-color", content: "#ffffff" },
       { property: "og:site_name", content: "GhanaFeed" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "GhanaFeed — Fearless Journalism" },
@@ -53,7 +53,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>

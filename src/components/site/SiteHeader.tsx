@@ -48,7 +48,7 @@ export function SiteHeader() {
       <div className="h-1 w-full flag-bar" />
 
       {/* Utility strip */}
-      <div className="hidden border-b border-border bg-gf-ink lg:block">
+      <div className="hidden border-b border-border bg-surface lg:block">
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
           <span>
             {new Date().toLocaleDateString("en-GB", {
