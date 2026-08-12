@@ -14,8 +14,10 @@ const LIST_FIELDS =
   "id,slug,title,excerpt,date,_links,_embedded";
 
 async function api<T>(path: string): Promise<{ data: T; headers: Headers }> {
-  const res = await fetch(`${API}/${path}`, {
-    headers: { Accept: "application/json" },
+  const sep = path.includes("?") ? "&" : "?";
+  const res = await fetch(`${API}/${path}${sep}_ts=${Date.now()}`, {
+    headers: { Accept: "application/json", "Cache-Control": "no-cache" },
+    cache: "no-store",
   });
   if (!res.ok) throw new Error(`GhanaFeed API ${res.status} for ${path}`);
   return { data: (await res.json()) as T, headers: res.headers };

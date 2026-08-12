@@ -11,7 +11,7 @@ export function SiteFooter() {
   const tags = data?.tags ?? [];
 
   return (
-    <footer className="mt-16 border-t border-border bg-gf-ink">
+    <footer className="mt-16 border-t border-border bg-surface">
       <div className="h-1 w-full flag-bar" />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-4">
         <div className="lg:col-span-1">
