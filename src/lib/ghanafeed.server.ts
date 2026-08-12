@@ -67,13 +67,18 @@ function normalize(raw: any, withContent = false): Article {
   };
 }
 
-/** Light scrub: drop scripts/styles and WP boilerplate wrappers. */
+/** Light scrub: drop scripts/styles, hard-coded colours/sizes and WP boilerplate. */
 function sanitize(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
     .replace(/ on[a-z]+="[^"]*"/gi, "")
-    .replace(/<div class="(?:sharedaddy|jp-relatedposts)[\s\S]*?<\/div>/gi, "");
+    .replace(/<div class="(?:sharedaddy|jp-relatedposts)[\s\S]*?<\/div>/gi, "")
+    // strip inline styling that fights the site theme (white text on white, fixed widths)
+    .replace(/\s(?:style|bgcolor|color|face|align|width|height)\s*=\s*"[^"]*"/gi, "")
+    .replace(/\s(?:style|bgcolor|color|face|align|width|height)\s*=\s*'[^']*'/gi, "")
+    .replace(/<\/?font[^>]*>/gi, "")
+    .replace(/<\/?(?:span|div)([^>]*)class="[^"]*has-[^"]*color[^"]*"[^>]*>/gi, "");
 }
 
 export async function fetchHome(): Promise<HomeFeed> {
