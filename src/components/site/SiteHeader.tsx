@@ -16,6 +16,18 @@ export function SiteHeader() {
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const inputRef = useRef<HTMLInputElement>(null);
+  const [today, setToday] = useState("");
+
+  useEffect(() => {
+    setToday(
+      new Date().toLocaleDateString("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+    );
+  }, []);
 
   const { data } = useQuery(homeFeedQuery());
   const breaking = (data?.posts ?? []).slice(0, 8);
