@@ -50,15 +50,7 @@ export function SiteHeader() {
       {/* Utility strip */}
       <div className="hidden border-b border-border bg-surface lg:block">
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          <span>
-            {new Date().toLocaleDateString("en-GB", {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}{" "}
-            · Accra, Ghana
-          </span>
+          <span suppressHydrationWarning>{today} · Accra, Ghana</span>
           <div className="flex items-center gap-5">
             <a href="tel:0557024346" className="inline-flex items-center gap-1.5 transition-colors hover:text-gf-gold">
               <Phone className="h-3 w-3" /> 055 702 4346
