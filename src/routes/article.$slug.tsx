@@ -136,10 +136,21 @@ function ArticlePage() {
             </figure>
           )}
 
-          <div
-            className="article-body mt-8"
-            dangerouslySetInnerHTML={{ __html: article.content ?? "" }}
-          />
+          {article.content && article.content.replace(/<[^>]*>/g, "").trim().length > 0 ? (
+            <div
+              className="article-body mt-8"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          ) : (
+            <div className="article-body mt-8">
+              <p>{article.excerpt}</p>
+              <p>
+                <a href={`https://ghanafeed.com/${article.slug}/`} target="_blank" rel="noreferrer noopener">
+                  Read the full story on GhanaFeed.com
+                </a>
+              </p>
+            </div>
+          )}
 
           {article.tags.length > 0 && (
             <div className="mt-10 flex flex-wrap items-center gap-2 border-t border-border pt-6">
