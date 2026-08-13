@@ -103,7 +103,7 @@ export function SiteHeader() {
       {/* Masthead */}
       <div
         className={cn(
-          "border-b border-border bg-background/92 backdrop-blur-xl transition-all",
+          "border-b border-border bg-background transition-[padding] duration-200",
           scrolled ? "py-1.5" : "py-3",
         )}
       >
