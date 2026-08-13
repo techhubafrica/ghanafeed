@@ -36,8 +36,20 @@ export function SiteHeader() {
   const breaking = mounted ? (data?.posts ?? []).slice(0, 8) : [];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 120);
-    onScroll();
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      setScrolled((prev) => {
+        const next = window.scrollY > 120;
+        return next === prev ? prev : next;
+      });
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
