@@ -176,11 +176,21 @@ html {
 @utility marquee-track {
   display: inline-flex;
   will-change: transform;
+  transform: translateZ(0);
+  contain: layout paint;
   animation: gf-marquee 48s linear infinite;
   &:hover {
     animation-play-state: paused;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .live-dot {
+    animation: none !important;
+  }
+}
+
 
 @keyframes gf-pulse-dot {
   0%,
