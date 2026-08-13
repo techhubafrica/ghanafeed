@@ -6,13 +6,12 @@ import { Wordmark } from "./Wordmark";
 import { NewsTicker } from "./NewsTicker";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { PRIMARY_NAV } from "@/lib/ghanafeed";
-import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [scrolled, setScrolled] = useState(false);
+  
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,24 +34,6 @@ export function SiteHeader() {
   const { data } = useQuery(homeFeedQuery());
   const breaking = mounted ? (data?.posts ?? []).slice(0, 8) : [];
 
-  useEffect(() => {
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      setScrolled((prev) => {
-        const next = window.scrollY > 120;
-        return next === prev ? prev : next;
-      });
-    };
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -101,12 +82,7 @@ export function SiteHeader() {
       </div>
 
       {/* Masthead */}
-      <div
-        className={cn(
-          "border-b border-border bg-background transition-[padding] duration-200",
-          scrolled ? "py-1.5" : "py-3",
-        )}
-      >
+      <div className="border-b border-border bg-background py-2.5">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 sm:px-6">
           <button
             className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gf-gold hover:text-foreground lg:hidden"
@@ -117,7 +93,7 @@ export function SiteHeader() {
             {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
 
-          <Wordmark compact={scrolled} />
+          <Wordmark />
 
           <nav className="ml-6 hidden flex-1 items-center gap-5 xl:flex">
             {PRIMARY_NAV.slice(0, 7).map((item) =>

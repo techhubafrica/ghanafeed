@@ -32,7 +32,7 @@ export function CategoryPill({
 function Meta({ article, className }: { article: Article; className?: string }) {
   return (
     <div className={cn("flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground", className)}>
-      <span>{timeAgo(article.date)}</span>
+      <span suppressHydrationWarning>{timeAgo(article.date)}</span>
       <span className="inline-flex items-center gap-1">
         <Clock className="h-3 w-3" />
         {article.readingTime} min

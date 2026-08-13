@@ -103,7 +103,7 @@ function HomePage() {
           </section>
 
           {sections.map((s) => (
-            <section key={s.slug} className="mt-12">
+            <section key={s.slug} className="mt-12 gf-defer">
               <SectionHeading title={s.label} slug={s.slug} />
               <div className="grid gap-6 md:grid-cols-2">
                 <FeatureCard article={s.items[0]} />
