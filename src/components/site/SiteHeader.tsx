@@ -6,7 +6,6 @@ import { Wordmark } from "./Wordmark";
 import { NewsTicker } from "./NewsTicker";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { PRIMARY_NAV } from "@/lib/ghanafeed";
-import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
