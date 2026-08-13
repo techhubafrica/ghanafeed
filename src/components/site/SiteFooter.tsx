@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Facebook, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -7,8 +8,11 @@ import { homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { PRIMARY_NAV } from "@/lib/ghanafeed";
 
 export function SiteFooter() {
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
   const { data } = useQuery(homeFeedQuery());
-  const tags = data?.tags ?? [];
+  const tags = hydrated ? (data?.tags ?? []) : [];
+
 
   return (
     <footer className="mt-16 border-t border-border bg-surface">
