@@ -1,35 +1,37 @@
 import { useState } from "react";
 import { Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { subscribeToNewsletter } from "@/lib/newsletter.functions";
 
 export function NewsletterCard({ compact }: { compact?: boolean }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const subscribe = useServerFn(subscribeToNewsletter);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const value = email.trim().toLowerCase();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) {
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value) || value.length > 254) {
       toast.error("Enter a valid email address");
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("newsletter_subscribers").insert({ email: value });
-    setLoading(false);
-
-    if (error) {
-      if (error.code === "23505") {
-        toast.success("You're already on the list — thanks!");
-        setEmail("");
-        return;
-      }
+    try {
+      const res = await subscribe({ data: { email: value } });
+      setEmail("");
+      toast.success(
+        res.alreadySubscribed
+          ? "You're already on the list — thanks!"
+          : "Subscribed. Ghana's headlines are on the way.",
+      );
+    } catch {
       toast.error("Could not subscribe. Please try again.");
-      return;
+    } finally {
+      setLoading(false);
     }
-    toast.success("Subscribed. Ghana's headlines are on the way.");
-    setEmail("");
   };
+
 
   return (
     <section className={compact ? "" : "rounded-md border border-border bg-surface p-6"}>
