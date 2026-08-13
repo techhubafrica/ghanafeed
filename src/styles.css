@@ -102,16 +102,17 @@ html {
     border-color: var(--color-border);
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-wrap: break-word;
+  }
+
+  img {
+    content-visibility: auto;
   }
 
   h1,
@@ -134,6 +135,13 @@ html {
     display: none;
   }
 }
+
+/* Skip painting off-screen sections while scrolling long feeds. */
+@utility gf-defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+
 
 /* Ghana flag tri-band divider */
 @utility flag-bar {
