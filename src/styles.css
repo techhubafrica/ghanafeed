@@ -167,6 +167,7 @@ html {
 
 @utility marquee-track {
   display: inline-flex;
+  will-change: transform;
   animation: gf-marquee 48s linear infinite;
   &:hover {
     animation-play-state: paused;

@@ -36,8 +36,20 @@ export function SiteHeader() {
   const breaking = mounted ? (data?.posts ?? []).slice(0, 8) : [];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 120);
-    onScroll();
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      setScrolled((prev) => {
+        const next = window.scrollY > 120;
+        return next === prev ? prev : next;
+      });
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -91,7 +103,7 @@ export function SiteHeader() {
       {/* Masthead */}
       <div
         className={cn(
-          "border-b border-border bg-background/92 backdrop-blur-xl transition-all",
+          "border-b border-border bg-background transition-[padding] duration-200",
           scrolled ? "py-1.5" : "py-3",
         )}
       >
