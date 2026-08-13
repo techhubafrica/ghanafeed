@@ -29,8 +29,11 @@ export function SiteHeader() {
     );
   }, []);
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const { data } = useQuery(homeFeedQuery());
-  const breaking = (data?.posts ?? []).slice(0, 8);
+  const breaking = mounted ? (data?.posts ?? []).slice(0, 8) : [];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 120);

@@ -90,17 +90,17 @@ export function HeroCard({ article, className, eager }: CardProps) {
       </Link>
       <div className="absolute inset-0">
         <Cover article={article} eager={eager} sizes="(max-width: 1024px) 100vw, 60vw" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gf-ink via-gf-ink/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gf-ink via-gf-ink/85 to-gf-ink/25" />
       </div>
       <div className="relative z-10 flex h-full flex-col justify-end gap-3 p-5 pt-40 sm:p-8 sm:pt-56">
         {cat && <div className="relative z-30 w-fit"><CategoryPill slug={cat.slug} name={cat.name} /></div>}
-        <h2 className="font-display text-2xl font-black leading-[1.08] text-foreground sm:text-4xl">
+        <h2 className="font-display text-2xl font-black leading-[1.08] text-background [text-shadow:0_2px_14px_rgb(0_0_0/0.55)] sm:text-4xl">
           {article.title}
         </h2>
-        <p className="hidden max-w-2xl text-sm leading-relaxed text-muted-foreground sm:line-clamp-2">
+        <p className="hidden max-w-2xl text-sm leading-relaxed text-background/85 sm:line-clamp-2">
           {article.excerpt}
         </p>
-        <Meta article={article} />
+        <Meta article={article} className="!text-background/75" />
       </div>
     </article>
   );
