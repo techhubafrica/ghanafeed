@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 
-const SESSION_KEY = "gf-splash-shown";
-
 export function SplashScreen() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (sessionStorage.getItem(SESSION_KEY)) return;
-    sessionStorage.setItem(SESSION_KEY, "1");
-    setVisible(true);
-
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hold = reduce ? 300 : 1500;
     const t1 = window.setTimeout(() => setLeaving(true), hold);
