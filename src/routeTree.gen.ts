@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdvertiseRouteImport } from './routes/advertise'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as CSlugRouteImport } from './routes/c.$slug'
@@ -19,11 +18,6 @@ import { Route as TSlugRouteImport } from './routes/t.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdvertiseRoute = AdvertiseRouteImport.update({
-  id: '/advertise',
-  path: '/advertise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -49,7 +43,6 @@ const TSlugRoute = TSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/advertise': typeof AdvertiseRoute
   '/search': typeof SearchRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/c/$slug': typeof CSlugRoute
@@ -57,7 +50,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/advertise': typeof AdvertiseRoute
   '/search': typeof SearchRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/c/$slug': typeof CSlugRoute
@@ -66,7 +58,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/advertise': typeof AdvertiseRoute
   '/search': typeof SearchRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/c/$slug': typeof CSlugRoute
@@ -74,34 +65,14 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/advertise'
-    | '/search'
-    | '/article/$slug'
-    | '/c/$slug'
-    | '/t/$slug'
+  fullPaths: '/' | '/search' | '/article/$slug' | '/c/$slug' | '/t/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/advertise'
-    | '/search'
-    | '/article/$slug'
-    | '/c/$slug'
-    | '/t/$slug'
-  id:
-    | '__root__'
-    | '/'
-    | '/advertise'
-    | '/search'
-    | '/article/$slug'
-    | '/c/$slug'
-    | '/t/$slug'
+  to: '/' | '/search' | '/article/$slug' | '/c/$slug' | '/t/$slug'
+  id: '__root__' | '/' | '/search' | '/article/$slug' | '/c/$slug' | '/t/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdvertiseRoute: typeof AdvertiseRoute
   SearchRoute: typeof SearchRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
   CSlugRoute: typeof CSlugRoute
@@ -115,13 +86,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/advertise': {
-      id: '/advertise'
-      path: '/advertise'
-      fullPath: '/advertise'
-      preLoaderRoute: typeof AdvertiseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -157,7 +121,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdvertiseRoute: AdvertiseRoute,
   SearchRoute: SearchRoute,
   ArticleSlugRoute: ArticleSlugRoute,
   CSlugRoute: CSlugRoute,
