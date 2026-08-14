@@ -9,6 +9,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SplashScreen } from "@/components/site/SplashScreen";
 
 import appCss from "../styles.css?url";
 
@@ -27,6 +28,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { title: "GhanaFeed — Fearless Journalism" },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "author", content: "GhanaFeed" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-title", content: "GhanaFeed" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { name: "theme-color", content: "#ffffff" },
       { property: "og:site_name", content: "GhanaFeed" },
       { property: "og:type", content: "website" },
@@ -39,7 +44,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
-      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://ghanafeed.com" },
@@ -72,6 +78,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SplashScreen />
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
         <main className="flex-1">
