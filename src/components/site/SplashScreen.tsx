@@ -40,7 +40,7 @@ export function SplashScreen() {
         </div>
 
         <p className="gf-splash-tag mt-5 font-mono text-[0.66rem] uppercase tracking-[0.42em] text-muted-foreground">
-          Fearless Journalism
+          Ghana&rsquo;s news, live
         </p>
 
         <div className="gf-splash-bar mt-8 h-[3px] w-44 overflow-hidden rounded-full bg-border sm:w-56">
