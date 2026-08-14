@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Wordmark } from "./Wordmark";
 import { NewsletterCard } from "./NewsletterCard";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
-import { PRIMARY_NAV } from "@/lib/ghanafeed";
+import { EXTERNAL_LINKS, FOOTER_PAGES, PRIMARY_NAV } from "@/lib/ghanafeed";
 
 export function SiteFooter() {
   const [hydrated, setHydrated] = useState(false);
@@ -26,9 +26,9 @@ export function SiteFooter() {
           </p>
           <div className="mt-5 flex gap-2">
             {[
-              { Icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-              { Icon: Youtube, href: "https://youtube.com", label: "YouTube" },
-              { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+              { Icon: Facebook, href: EXTERNAL_LINKS.facebook, label: "Facebook" },
+              { Icon: Youtube, href: EXTERNAL_LINKS.youtube, label: "YouTube" },
+              { Icon: Linkedin, href: EXTERNAL_LINKS.linkedin, label: "LinkedIn" },
             ].map(({ Icon, href, label }) => (
               <a
                 key={label}
@@ -75,13 +75,20 @@ export function SiteFooter() {
             <li className="flex gap-2.5">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gf-red" />
               <span>
-                <a href="tel:0557024346" className="hover:text-foreground">055 702 4346</a>
-                <span className="block text-xs">WhatsApp: 055 702 4341</span>
+                <a href={EXTERNAL_LINKS.phone} className="hover:text-foreground">055 702 4346</a>
+                <a
+                  href={EXTERNAL_LINKS.whatsapp}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="block text-xs hover:text-foreground"
+                >
+                  WhatsApp: 055 702 4341
+                </a>
               </span>
             </li>
             <li className="flex gap-2.5">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gf-red" />
-              <a href="mailto:info@ghanafeed.com" className="hover:text-foreground">
+              <a href={EXTERNAL_LINKS.email} className="hover:text-foreground">
                 info@ghanafeed.com
               </a>
             </li>
@@ -109,12 +116,33 @@ export function SiteFooter() {
 
         <div>
           <NewsletterCard compact />
-          <Link
-            to="/advertise"
+          <a
+            href={EXTERNAL_LINKS.advertise}
+            target="_blank"
+            rel="noreferrer noopener"
             className="mt-6 inline-block rounded-sm bg-gf-red px-5 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-90"
           >
             Advertise with us
-          </Link>
+          </a>
+          <div className="mt-8">
+            <h4 className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-gf-gold">
+              More from GhanaFeed
+            </h4>
+            <ul className="mt-4 grid grid-cols-2 gap-y-2 text-sm text-muted-foreground">
+              {FOOTER_PAGES.map((page) => (
+                <li key={page.label}>
+                  <a
+                    href={page.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="transition-colors hover:text-foreground"
+                  >
+                    {page.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 

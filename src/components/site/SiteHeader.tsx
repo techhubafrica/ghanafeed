@@ -5,7 +5,7 @@ import { Facebook, Linkedin, Mail, Menu, Phone, Search, X, Youtube } from "lucid
 import { Wordmark } from "./Wordmark";
 import { NewsTicker } from "./NewsTicker";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
-import { PRIMARY_NAV } from "@/lib/ghanafeed";
+import { EXTERNAL_LINKS, PRIMARY_NAV } from "@/lib/ghanafeed";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,20 +60,20 @@ export function SiteHeader() {
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
           <span suppressHydrationWarning>{today} · Accra, Ghana</span>
           <div className="flex items-center gap-5">
-            <a href="tel:0557024346" className="inline-flex items-center gap-1.5 transition-colors hover:text-gf-gold">
+            <a href={EXTERNAL_LINKS.phone} className="inline-flex items-center gap-1.5 transition-colors hover:text-gf-gold">
               <Phone className="h-3 w-3" /> 055 702 4346
             </a>
-            <a href="mailto:info@ghanafeed.com" className="inline-flex items-center gap-1.5 transition-colors hover:text-gf-gold">
+            <a href={EXTERNAL_LINKS.email} className="inline-flex items-center gap-1.5 transition-colors hover:text-gf-gold">
               <Mail className="h-3 w-3" /> info@ghanafeed.com
             </a>
             <div className="flex items-center gap-3">
-              <a href="https://facebook.com" target="_blank" rel="noreferrer noopener" aria-label="GhanaFeed on Facebook" className="transition-colors hover:text-gf-gold">
+              <a href={EXTERNAL_LINKS.facebook} target="_blank" rel="noreferrer noopener" aria-label="GhanaFeed on Facebook" className="transition-colors hover:text-gf-gold">
                 <Facebook className="h-3.5 w-3.5" />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer noopener" aria-label="GhanaFeed on YouTube" className="transition-colors hover:text-gf-gold">
+              <a href={EXTERNAL_LINKS.youtube} target="_blank" rel="noreferrer noopener" aria-label="GhanaFeed on YouTube" className="transition-colors hover:text-gf-gold">
                 <Youtube className="h-3.5 w-3.5" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer noopener" aria-label="GhanaFeed on LinkedIn" className="transition-colors hover:text-gf-gold">
+              <a href={EXTERNAL_LINKS.linkedin} target="_blank" rel="noreferrer noopener" aria-label="GhanaFeed on LinkedIn" className="transition-colors hover:text-gf-gold">
                 <Linkedin className="h-3.5 w-3.5" />
               </a>
             </div>
@@ -129,12 +129,14 @@ export function SiteHeader() {
             >
               {searchOpen ? <X className="h-4 w-4" /> : <Search className="h-4 w-4" />}
             </button>
-            <Link
-              to="/advertise"
+            <a
+              href={EXTERNAL_LINKS.advertise}
+              target="_blank"
+              rel="noreferrer noopener"
               className="hidden rounded-sm bg-gf-red px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-90 sm:inline-block"
             >
               Advertise
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -203,9 +205,14 @@ export function SiteHeader() {
                 </Link>
               ),
             )}
-            <Link to="/advertise" className="col-span-2 bg-gf-red px-4 py-3 text-center font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground">
+            <a
+              href={EXTERNAL_LINKS.advertise}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="col-span-2 bg-gf-red px-4 py-3 text-center font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground"
+            >
               Advertise with us
-            </Link>
+            </a>
           </nav>
         </div>
       )}

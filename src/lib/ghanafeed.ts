@@ -131,3 +131,36 @@ export const PRIMARY_NAV = [
   { label: "World", slug: "world-news" },
   { label: "Campus Vibes", slug: "campus-vibes" },
 ] as const;
+
+export const SITE_ORIGIN = "https://ghanafeed.com";
+
+/** Links that live on ghanafeed.com — we send readers straight to the source. */
+export const EXTERNAL_LINKS = {
+  advertise: `${SITE_ORIGIN}/advertise`,
+  about: `${SITE_ORIGIN}/about-us`,
+  contact: `${SITE_ORIGIN}/contact`,
+  contribute: `${SITE_ORIGIN}/join-as-contributor`,
+  jobs: `${SITE_ORIGIN}/job-advertisements`,
+  allArticles: `${SITE_ORIGIN}/all-articles`,
+  privacy: `${SITE_ORIGIN}/privacy-policy`,
+  terms: `${SITE_ORIGIN}/terms-conditions`,
+  cookies: `${SITE_ORIGIN}/cookie-policy`,
+  disclaimer: `${SITE_ORIGIN}/disclaimer`,
+  facebook: "https://www.facebook.com/share/18Gv51oFCM/",
+  youtube: "https://www.youtube.com/@GhanaFeed",
+  linkedin: "https://www.linkedin.com/company/ghanafeed/",
+  email: "mailto:info@ghanafeed.com",
+  phone: "tel:0557024346",
+  whatsapp: "https://wa.me/233557024341",
+} as const;
+
+export const FOOTER_PAGES = [
+  { label: "About us", href: EXTERNAL_LINKS.about },
+  { label: "Contact", href: EXTERNAL_LINKS.contact },
+  { label: "Join as contributor", href: EXTERNAL_LINKS.contribute },
+  { label: "Job adverts", href: EXTERNAL_LINKS.jobs },
+  { label: "Privacy policy", href: EXTERNAL_LINKS.privacy },
+  { label: "Terms & conditions", href: EXTERNAL_LINKS.terms },
+  { label: "Cookie policy", href: EXTERNAL_LINKS.cookies },
+  { label: "Disclaimer", href: EXTERNAL_LINKS.disclaimer },
+] as const;
