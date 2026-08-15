@@ -225,9 +225,14 @@ function offlineServiceWorker() {
 
 export default defineConfig(({ command }) => {
 
+  // Vercel sets VERCEL=1 during its build; DEPLOY_TARGET can force it locally.
+  const isVercel =
+    process.env.DEPLOY_TARGET === "vercel" || process.env.VERCEL === "1";
+
   // Use Cloudflare Workers plugin for builds (produces worker output)
-  // Skip for dev server (command=serve) since workerd runtime isn't available
-  const useCloudflare = command === "build";
+  // Skip for dev server (command=serve) since workerd runtime isn't available,
+  // and skip on Vercel where TanStack Start emits Vercel functions instead.
+  const useCloudflare = command === "build" && !isVercel;
 
   return {
     server: {
@@ -248,6 +253,7 @@ export default defineConfig(({ command }) => {
       devServerFnErrorLogger(),
       ...(useCloudflare ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
       tanstackStart(),
+
       viteReact(),
       // Provides the `virtual:pwa-register` module used by src/lib/pwa.ts.
       VitePWA({
