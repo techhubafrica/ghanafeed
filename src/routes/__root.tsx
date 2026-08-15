@@ -76,6 +76,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    void registerServiceWorker();
+  }, []);
+
+
+
   return (
     <QueryClientProvider client={queryClient}>
       <SplashScreen />
