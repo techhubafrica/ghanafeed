@@ -252,7 +252,7 @@ export default defineConfig(({ command }) => {
       devClientErrorLogger(),
       devServerFnErrorLogger(),
       ...(useCloudflare ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
-      tanstackStart(isVercel ? { target: "vercel" } : undefined),
+      tanstackStart(),
 
       viteReact(),
       // Provides the `virtual:pwa-register` module used by src/lib/pwa.ts.
