@@ -1,4 +1,6 @@
+import fs from "fs";
 import path from "path";
+
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { cloudflare } from "@cloudflare/vite-plugin";
