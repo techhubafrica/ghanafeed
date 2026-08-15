@@ -193,8 +193,11 @@ export default defineConfig(({ command }) => {
         filename: "sw.js",
         devOptions: { enabled: false },
         manifest: false,
+        outDir: "dist/client",
         workbox: {
+          globDirectory: "dist/client",
           globPatterns: ["**/*.{js,css,ico,png,svg,webp,woff2}"],
+
           navigateFallbackDenylist: [/^\/~oauth/, /^\/api\//],
           cleanupOutdatedCaches: true,
           clientsClaim: true,
