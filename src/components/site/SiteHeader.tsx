@@ -3,6 +3,8 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Facebook, Linkedin, Mail, Menu, Phone, Search, X, Youtube } from "lucide-react";
 import { Wordmark } from "./Wordmark";
+import { AlertsToggle } from "./AlertsToggle";
+
 import { NewsTicker } from "./NewsTicker";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { EXTERNAL_LINKS, PRIMARY_NAV } from "@/lib/ghanafeed";
@@ -122,7 +124,9 @@ export function SiteHeader() {
           </nav>
 
           <div className="ml-auto flex items-center gap-2">
+            <AlertsToggle />
             <button
+
               onClick={() => setSearchOpen((v) => !v)}
               aria-label="Search"
               className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gf-gold hover:text-foreground"
