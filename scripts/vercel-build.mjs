@@ -16,7 +16,7 @@ const root = process.cwd();
 const out = path.join(root, ".vercel", "output");
 const fn = path.join(out, "functions", "index.func");
 
-execSync("vite build", {
+execSync("npx vite build", {
   stdio: "inherit",
   env: { ...process.env, DEPLOY_TARGET: "vercel" },
 });
