@@ -3,6 +3,8 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Facebook, Linkedin, Mail, Menu, Phone, Search, X, Youtube } from "lucide-react";
 import { Wordmark } from "./Wordmark";
+import { AlertsToggle } from "./AlertsToggle";
+
 import { NewsTicker } from "./NewsTicker";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { EXTERNAL_LINKS, PRIMARY_NAV } from "@/lib/ghanafeed";
