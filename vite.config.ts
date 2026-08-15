@@ -186,6 +186,7 @@ export default defineConfig(({ command }) => {
       ...(useCloudflare ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
       tanstackStart(),
       viteReact(),
+      // Provides the `virtual:pwa-register` module used by src/lib/pwa.ts.
       VitePWA({
         strategies: "generateSW",
         registerType: "autoUpdate",
@@ -193,56 +194,11 @@ export default defineConfig(({ command }) => {
         filename: "sw.js",
         devOptions: { enabled: false },
         manifest: false,
-        outDir: "dist/client",
-        workbox: {
-          globDirectory: "dist/client",
-          globPatterns: ["**/*.{js,css,ico,png,svg,webp,woff2}"],
-
-          navigateFallbackDenylist: [/^\/~oauth/, /^\/api\//],
-          cleanupOutdatedCaches: true,
-          clientsClaim: true,
-          skipWaiting: true,
-          runtimeCaching: [
-            {
-              urlPattern: ({ request }) => request.mode === "navigate",
-              handler: "NetworkFirst",
-              options: {
-                cacheName: "gf-pages",
-                networkTimeoutSeconds: 4,
-                expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 7 },
-              },
-            },
-            {
-              urlPattern: ({ url, sameOrigin }) =>
-                sameOrigin && /\.(?:js|css|woff2)$/.test(url.pathname),
-              handler: "CacheFirst",
-              options: {
-                cacheName: "gf-assets",
-                expiration: { maxEntries: 120, maxAgeSeconds: 60 * 60 * 24 * 30 },
-              },
-            },
-            {
-              urlPattern: ({ request }) => request.destination === "image",
-              handler: "StaleWhileRevalidate",
-              options: {
-                cacheName: "gf-images",
-                expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 14 },
-                cacheableResponse: { statuses: [0, 200] },
-              },
-            },
-            {
-              urlPattern: ({ url }) => url.pathname.startsWith("/_serverFn/"),
-              handler: "NetworkFirst",
-              options: {
-                cacheName: "gf-feed",
-                networkTimeoutSeconds: 5,
-                expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 3 },
-                cacheableResponse: { statuses: [0, 200] },
-              },
-            },
-          ],
-        },
       }),
+      // The multi-environment (client + worker) build skips the plugin's own
+      // service-worker emit, so generate it against dist/client afterwards.
+      offlineServiceWorker(),
+
 
     ],
   };
