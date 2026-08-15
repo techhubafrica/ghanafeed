@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+import { registerServiceWorker } from "@/lib/pwa";
 import {
+
   Outlet,
   createRootRouteWithContext,
   HeadContent,
