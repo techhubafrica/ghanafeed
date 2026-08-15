@@ -161,7 +161,68 @@ function devServerFnErrorLogger() {
   };
 }
 
+/**
+ * Generates the offline service worker against the built client output.
+ * Workbox precaches the app shell/assets; navigations stay network-first so
+ * fresh GhanaFeed stories always win when the reader is online.
+ */
+function offlineServiceWorker() {
+  return {
+    name: "gf-offline-service-worker",
+    apply: "build" as const,
+    enforce: "post" as const,
+    async closeBundle() {
+      const clientDir = path.resolve(__dirname, "dist/client");
+      if (!fs.existsSync(path.join(clientDir, "index.html")) && !fs.existsSync(clientDir)) return;
+
+      const { generateSW } = await import("workbox-build");
+      await generateSW({
+        swDest: path.join(clientDir, "sw.js"),
+        globDirectory: clientDir,
+        globPatterns: ["**/*.{js,css,ico,png,svg,webp,woff2}"],
+        globIgnores: ["sw.js", "workbox-*.js"],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
+        navigateFallbackDenylist: [/^\/~oauth/, /^\/api\//],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === "navigate",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "gf-pages",
+              networkTimeoutSeconds: 4,
+              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
+          {
+            urlPattern: ({ request }) => request.destination === "image",
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "gf-images",
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 14 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith("/_serverFn/"),
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "gf-feed",
+              networkTimeoutSeconds: 5,
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 3 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
+      });
+    },
+  };
+}
+
 export default defineConfig(({ command }) => {
+
   // Use Cloudflare Workers plugin for builds (produces worker output)
   // Skip for dev server (command=serve) since workerd runtime isn't available
   const useCloudflare = command === "build";
