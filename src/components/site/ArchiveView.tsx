@@ -155,7 +155,7 @@ export function ArchiveView({ kind, value, page, eyebrow }: Props) {
                       <Link
                         key={n.slug}
                         to="/c/$slug"
-                        params={{ slug: n.slug! }}
+                        params={{ slug: n.slug }}
                         className="rounded-sm border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:border-gf-gold hover:text-foreground"
                       >
                         {n.label}
