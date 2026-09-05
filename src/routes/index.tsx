@@ -71,6 +71,13 @@ function HomePage() {
       <section aria-label="Top stories" className="grid items-start gap-6 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <HeroCard article={lead} eager />
+          {strip.length > 0 && (
+            <div className="mt-6 grid gap-5 border-t border-border pt-6 sm:grid-cols-2">
+              {strip.map((a) => (
+                <TextCard key={a.id} article={a} />
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-5 lg:col-span-4">
           <div className="border-b border-border pb-2">
@@ -88,14 +95,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Strip */}
-      {strip.length > 0 && (
-        <section className="mt-8 grid gap-5 border-y border-border py-6 sm:grid-cols-2 lg:grid-cols-4">
-          {strip.map((a) => (
-            <TextCard key={a.id} article={a} />
-          ))}
-        </section>
-      )}
 
       {/* Picture band */}
       {picture.length > 0 && (
