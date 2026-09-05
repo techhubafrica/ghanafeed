@@ -92,6 +92,19 @@ function HomePage() {
         </section>
       )}
 
+      {/* Picture band */}
+      {picture.length > 0 && (
+        <section className="mt-8 gf-defer" aria-label="In pictures">
+          <SectionHeading title="In Pictures" eyebrow="Photo desk" />
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {picture.map((a) => (
+              <MosaicCard key={a.id} article={a} />
+            ))}
+          </div>
+        </section>
+      )}
+
+
       {/* Main grid */}
       <div className="mt-10 grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8">
