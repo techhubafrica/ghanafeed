@@ -68,7 +68,7 @@ function HomePage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
       {/* Lead block */}
-      <section aria-label="Top stories" className="grid gap-6 lg:grid-cols-12">
+      <section aria-label="Top stories" className="grid items-start gap-6 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <HeroCard article={lead} eager />
         </div>
@@ -78,8 +78,11 @@ function HomePage() {
               Also leading
             </span>
           </div>
-          {secondary.map((a) => (
+          {secondary.slice(0, 1).map((a) => (
             <FeatureCard key={a.id} article={a} />
+          ))}
+          {secondary.slice(1).map((a) => (
+            <ListCard key={a.id} article={a} />
           ))}
           <HeadlineStrip label="Top stories now" accent="var(--gf-gold)" articles={posts.slice(3, 8)} />
         </div>
