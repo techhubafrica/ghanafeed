@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
-import { HeroCard, FeatureCard, ListCard, TextCard } from "@/components/site/ArticleCard";
+import { HeroCard, FeatureCard, ListCard, TextCard, MosaicCard } from "@/components/site/ArticleCard";
+import { HeadlineStrip } from "@/components/site/HeadlineStrip";
+
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { NewsletterCard } from "@/components/site/NewsletterCard";
 import { PRIMARY_NAV, type Article } from "@/lib/ghanafeed";
