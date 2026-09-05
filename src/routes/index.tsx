@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
-import { HeroCard, FeatureCard, ListCard, TextCard } from "@/components/site/ArticleCard";
+import { HeroCard, FeatureCard, ListCard, TextCard, MosaicCard } from "@/components/site/ArticleCard";
+import { HeadlineStrip } from "@/components/site/HeadlineStrip";
+
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { NewsletterCard } from "@/components/site/NewsletterCard";
 import { PRIMARY_NAV, type Article } from "@/lib/ghanafeed";
@@ -41,6 +43,7 @@ function HomePage() {
   const strip = posts.slice(3, 7);
   const latest = posts.slice(0, 6);
   const mostRead = posts.slice(7, 12);
+  const picture = posts.filter((p) => p.image).slice(7, 11);
 
   const sectionSlugs = ["news", "politics", "sports", "business-economy", "entertainment"];
   const sections = sectionSlugs
@@ -65,9 +68,16 @@ function HomePage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
       {/* Lead block */}
-      <section aria-label="Top stories" className="grid gap-6 lg:grid-cols-12">
+      <section aria-label="Top stories" className="grid items-start gap-6 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <HeroCard article={lead} eager />
+          {strip.length > 0 && (
+            <div className="mt-6 grid gap-5 border-t border-border pt-6 sm:grid-cols-2">
+              {strip.map((a) => (
+                <TextCard key={a.id} article={a} />
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-5 lg:col-span-4">
           <div className="border-b border-border pb-2">
@@ -75,20 +85,29 @@ function HomePage() {
               Also leading
             </span>
           </div>
-          {secondary.map((a) => (
+          {secondary.slice(0, 1).map((a) => (
             <FeatureCard key={a.id} article={a} />
           ))}
+          {secondary.slice(1).map((a) => (
+            <ListCard key={a.id} article={a} />
+          ))}
+          <HeadlineStrip label="Top stories now" accent="var(--gf-gold)" articles={posts.slice(3, 8)} />
         </div>
       </section>
 
-      {/* Strip */}
-      {strip.length > 0 && (
-        <section className="mt-8 grid gap-5 border-y border-border py-6 sm:grid-cols-2 lg:grid-cols-4">
-          {strip.map((a) => (
-            <TextCard key={a.id} article={a} />
-          ))}
+
+      {/* Picture band */}
+      {picture.length > 0 && (
+        <section className="mt-8 gf-defer" aria-label="In pictures">
+          <SectionHeading title="In Pictures" eyebrow="Photo desk" />
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {picture.map((a) => (
+              <MosaicCard key={a.id} article={a} />
+            ))}
+          </div>
         </section>
       )}
+
 
       {/* Main grid */}
       <div className="mt-10 grid gap-10 lg:grid-cols-12">

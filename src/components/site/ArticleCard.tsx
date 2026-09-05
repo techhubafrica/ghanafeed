@@ -160,7 +160,45 @@ export function ListCard({
   );
 }
 
+/** Image-led tile with the headline set over the photo — magazine mosaic. */
+export function MosaicCard({
+  article,
+  className,
+  aspect = "aspect-[4/5]",
+  eager,
+}: CardProps & { aspect?: string }) {
+  const cat = article.categories[0];
+  return (
+    <article
+      className={cn(
+        "group relative isolate overflow-hidden rounded-md border border-border bg-surface",
+        aspect,
+        className,
+      )}
+    >
+      <Cover article={article} eager={eager} sizes="(max-width: 768px) 50vw, 25vw" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gf-ink via-gf-ink/60 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-3.5">
+        {cat && (
+          <span className="w-fit font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-gf-gold">
+            {cat.name}
+          </span>
+        )}
+        <h3 className="font-display text-sm font-bold leading-snug text-background [text-shadow:0_1px_10px_rgb(0_0_0/0.6)] sm:text-base">
+          <Link to="/article/$slug" params={{ slug: article.slug }} className="line-clamp-3">
+            {article.title}
+          </Link>
+        </h3>
+      </div>
+      <Link to="/article/$slug" params={{ slug: article.slug }} className="absolute inset-0 z-20">
+        <span className="sr-only">{article.title}</span>
+      </Link>
+    </article>
+  );
+}
+
 /** Text-only entry for dense rails. */
+
 export function TextCard({ article, className }: CardProps) {
   const cat = article.categories[0];
   return (

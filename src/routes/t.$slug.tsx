@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { archiveQuery } from "@/lib/ghanafeed.queries";
+import { archiveQuery, homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { ArchiveView } from "@/components/site/ArchiveView";
 
 export const Route = createFileRoute("/t/$slug")({
@@ -7,6 +7,7 @@ export const Route = createFileRoute("/t/$slug")({
     search.page ? { page: Number(search.page) || 1 } : {},
   loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
   loader: async ({ context, params, deps }) => {
+    void context.queryClient.ensureQueryData(homeFeedQuery());
     const data = await context.queryClient.ensureQueryData(
       archiveQuery("tag", params.slug, deps.page),
     );
