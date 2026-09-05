@@ -43,6 +43,7 @@ function HomePage() {
   const strip = posts.slice(3, 7);
   const latest = posts.slice(0, 6);
   const mostRead = posts.slice(7, 12);
+  const picture = posts.filter((p) => p.image).slice(7, 11);
 
   const sectionSlugs = ["news", "politics", "sports", "business-economy", "entertainment"];
   const sections = sectionSlugs
