@@ -81,6 +81,7 @@ function HomePage() {
           {secondary.map((a) => (
             <FeatureCard key={a.id} article={a} />
           ))}
+          <HeadlineStrip label="Top stories now" accent="var(--gf-gold)" articles={posts.slice(3, 8)} />
         </div>
       </section>
 
