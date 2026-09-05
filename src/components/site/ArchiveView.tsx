@@ -29,7 +29,11 @@ export function ArchiveView({ kind, value, page, eyebrow }: Props) {
   const remainder = rest.slice(6);
   const gridItems = page === 1 ? remainder : data.posts;
 
-  const siblings = PRIMARY_NAV.filter((n) => "slug" in n && n.slug !== value).slice(0, 8);
+  type NavSection = Extract<(typeof PRIMARY_NAV)[number], { slug: string }>;
+  const siblings = PRIMARY_NAV.filter(
+    (n): n is NavSection => "slug" in n && n.slug !== value,
+  ).slice(0, 8);
+
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
