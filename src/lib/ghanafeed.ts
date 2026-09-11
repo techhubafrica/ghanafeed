@@ -159,7 +159,7 @@ export const FOOTER_PAGES = [
   { label: "Contact", href: EXTERNAL_LINKS.contact },
   { label: "Join as contributor", href: EXTERNAL_LINKS.contribute },
   { label: "Job adverts", href: EXTERNAL_LINKS.jobs },
-  { label: "Privacy policy", href: EXTERNAL_LINKS.privacy },
+  { label: "Privacy policy", href: "/privacy", internal: true },
   { label: "Terms & conditions", href: EXTERNAL_LINKS.terms },
   { label: "Cookie policy", href: EXTERNAL_LINKS.cookies },
   { label: "Disclaimer", href: EXTERNAL_LINKS.disclaimer },
