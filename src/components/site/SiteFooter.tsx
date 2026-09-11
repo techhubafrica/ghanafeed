@@ -131,14 +131,20 @@ export function SiteFooter() {
             <ul className="mt-4 grid grid-cols-2 gap-y-2 text-sm text-muted-foreground">
               {FOOTER_PAGES.map((page) => (
                 <li key={page.label}>
-                  <a
-                    href={page.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="transition-colors hover:text-foreground"
-                  >
-                    {page.label}
-                  </a>
+                  {"internal" in page && page.internal ? (
+                    <Link to={page.href} className="transition-colors hover:text-foreground">
+                      {page.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={page.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="transition-colors hover:text-foreground"
+                    >
+                      {page.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
