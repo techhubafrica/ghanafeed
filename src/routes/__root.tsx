@@ -88,7 +88,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SplashScreen />
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col w-full max-w-full overflow-x-hidden">
         <SiteHeader />
         <main className="flex-1">
           <Outlet />

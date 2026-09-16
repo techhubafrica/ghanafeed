@@ -87,14 +87,14 @@ function ArticlePage() {
       </Link>
 
       <div className="mt-6 grid gap-12 lg:grid-cols-12">
-        <article className="lg:col-span-8">
+        <article className="min-w-0 w-full max-w-full overflow-hidden lg:col-span-8">
           <div className="flex flex-wrap gap-2">
             {article.categories.slice(0, 3).map((c) => (
               <CategoryPill key={c.id} slug={c.slug} name={c.name} />
             ))}
           </div>
 
-          <h1 className="mt-4 font-display text-3xl font-black leading-[1.08] tracking-tight sm:text-4xl lg:text-[2.9rem]">
+          <h1 className="mt-4 font-display text-3xl font-black leading-[1.08] tracking-tight break-words sm:text-4xl lg:text-[2.9rem]">
             {article.title}
           </h1>
 

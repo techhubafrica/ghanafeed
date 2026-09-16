@@ -95,6 +95,8 @@
 
 html {
   color-scheme: light;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 @layer base {
@@ -109,6 +111,9 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-wrap: break-word;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
   }
 
   img {
@@ -216,18 +221,28 @@ html {
   overflow-wrap: anywhere;
   word-break: break-word;
   max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+/* Ensure all article descendants never exceed container width or force horizontal expansion */
+.article-body * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere;
 }
 /* WP posts often ship hard-coded colours/sizes; force them onto the theme. */
 .article-body *:not(a) {
   color: inherit !important;
   background-color: transparent !important;
-  max-width: 100% !important;
   font-family: inherit !important;
 }
 .article-body table {
   display: block;
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
 }
 .article-body td,
@@ -236,8 +251,11 @@ html {
   padding: 0.5rem 0.75rem;
 }
 .article-body pre {
+  max-width: 100%;
   overflow-x: auto;
   white-space: pre-wrap;
+  word-break: break-all;
+  -webkit-overflow-scrolling: touch;
 }
 @media (max-width: 640px) {
   .article-body {
@@ -259,6 +277,8 @@ html {
   color: var(--foreground);
   margin-top: 2.25rem;
   line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .article-body h2 {
   font-size: 1.5rem;
@@ -277,14 +297,23 @@ html {
 }
 .article-body img,
 .article-body iframe,
-.article-body video {
-  width: 100%;
+.article-body video,
+.article-body embed,
+.article-body object,
+.article-body .wp-block-embed,
+.article-body .wp-block-embed__wrapper,
+.article-body twitter-widget,
+.article-body .twitter-tweet,
+.article-body .instagram-media {
+  max-width: 100% !important;
+  width: 100% !important;
   height: auto;
+  min-width: 0 !important;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
 }
 .article-body figure {
   margin: 1.75rem 0;
+  max-width: 100% !important;
 }
 .article-body figcaption {
   margin-top: 0.5rem;
@@ -298,6 +327,7 @@ html {
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--foreground);
+  max-width: 100%;
 }
 .article-body ul,
 .article-body ol {
@@ -326,6 +356,23 @@ html {
 }
 .article-body a {
   color: var(--gf-red) !important;
+}
+
+/* Eradicate Lovable editor badge and overlays */
+#lovable-badge,
+#lovable-badge-cta,
+#lovable-badge-close,
+[id^="lovable-"],
+[class*="lovable-badge"],
+a[href*="lovable.dev/projects"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  z-index: -9999 !important;
 }
 
 /* ---------- Splash screen ---------- */
