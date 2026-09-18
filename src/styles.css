@@ -96,6 +96,7 @@
 html {
   color-scheme: light;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
   max-width: 100%;
 }
 
