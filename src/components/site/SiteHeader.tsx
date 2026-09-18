@@ -38,7 +38,6 @@ export function SiteHeader() {
 
 
   useEffect(() => {
-    setMenuOpen(false);
     setSearchOpen(false);
   }, [pathname]);
 
