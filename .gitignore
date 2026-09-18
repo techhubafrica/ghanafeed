@@ -37,3 +37,7 @@ dist-ssr
 # Android signing keys
 *.keystore
 *.jks
+
+.env
+.env.local
+.env.*.local
