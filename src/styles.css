@@ -262,6 +262,39 @@ html {
     font-size: 1rem;
     line-height: 1.75;
   }
+  /* Nothing inside a story should need sideways scrolling on a phone:
+     wrap forced-nowrap text and stack wide tables into rows. */
+  .article-body * {
+    white-space: normal !important;
+    float: none !important;
+    overflow-x: hidden !important;
+  }
+  .article-body pre,
+  .article-body code {
+    white-space: pre-wrap !important;
+  }
+  .article-body table,
+  .article-body thead,
+  .article-body tbody,
+  .article-body tr,
+  .article-body th,
+  .article-body td {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .article-body tr {
+    border: 1px solid var(--border);
+    margin-bottom: 0.75rem;
+  }
+  .article-body th,
+  .article-body td {
+    border: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .article-body tr > *:last-child {
+    border-bottom: 0;
+  }
 }
 .article-body > * + * {
   margin-top: 1.15rem;
