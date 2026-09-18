@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Facebook, Linkedin, Mail, Menu, Phone, Search, X, Youtube } from "lucide-react";
+import { Facebook, Linkedin, Mail, Phone, Search, X, Youtube } from "lucide-react";
 import { Wordmark } from "./Wordmark";
 import { AlertsToggle } from "./AlertsToggle";
+import { MobileSectionTabs } from "./MobileSectionTabs";
 
 import { NewsTicker } from "./NewsTicker";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { EXTERNAL_LINKS, PRIMARY_NAV } from "@/lib/ghanafeed";
 
 export function SiteHeader() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   
@@ -86,15 +86,6 @@ export function SiteHeader() {
       {/* Masthead */}
       <div className="border-b border-border bg-background py-2.5">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 sm:px-6">
-          <button
-            className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gf-gold hover:text-foreground lg:hidden"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
-
           <Wordmark />
 
           <nav className="ml-6 hidden flex-1 items-center gap-5 xl:flex">
@@ -189,37 +180,8 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className="border-b border-border bg-surface lg:hidden">
-          <nav className="grid grid-cols-2 gap-px bg-border">
-            {PRIMARY_NAV.map((item) =>
-              "to" in item ? (
-                <Link key={item.label} to="/" className="bg-surface px-4 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em]">
-                  {item.label}
-                </Link>
-              ) : (
-                <Link
-                  key={item.label}
-                  to="/c/$slug"
-                  params={{ slug: item.slug }}
-                  className="bg-surface px-4 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em]"
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
-            <a
-              href={EXTERNAL_LINKS.advertise}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="col-span-2 bg-gf-red px-4 py-3 text-center font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground"
-            >
-              Advertise with us
-            </a>
-          </nav>
-        </div>
-      )}
+      {/* Mobile section tabs */}
+      <MobileSectionTabs />
 
       <NewsTicker items={breaking} />
     </header>
