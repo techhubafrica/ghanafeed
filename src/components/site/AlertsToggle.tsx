@@ -5,15 +5,12 @@ import { useBreakingAlerts } from "@/hooks/use-breaking-alerts";
 export function AlertsToggle({ className = "" }: { className?: string }) {
   const { enabled, permission, toggle } = useBreakingAlerts();
 
-  if (permission === "unsupported") return null;
-
   const denied = permission === "denied";
 
   return (
     <button
       type="button"
       onClick={toggle}
-      disabled={denied}
       aria-pressed={enabled}
       title={
         denied
@@ -23,7 +20,7 @@ export function AlertsToggle({ className = "" }: { className?: string }) {
             : "Get breaking-news alerts"
       }
       aria-label={enabled ? "Turn off breaking-news alerts" : "Turn on breaking-news alerts"}
-      className={`inline-flex h-9 w-9 items-center justify-center rounded-sm border transition-colors disabled:opacity-40 ${
+      className={`inline-flex h-9 w-9 items-center justify-center rounded-sm border transition-colors ${
         enabled
           ? "border-gf-red text-gf-red"
           : "border-border text-muted-foreground hover:border-gf-gold hover:text-foreground"

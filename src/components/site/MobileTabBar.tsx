@@ -28,13 +28,46 @@ export function MobileTabBar() {
           <div className="absolute inset-x-0 bottom-0 rounded-t-xl border-t border-border bg-background pb-[calc(4.5rem+env(safe-area-inset-bottom))]">
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <span className="font-mono text-[11px] font-bold uppercase tracking-[0.18em]">
-                Sections
+                Sections & Alerts
               </span>
               <button onClick={() => setSheetOpen(false)} aria-label="Close">
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <nav className="grid grid-cols-2 gap-px bg-border">
+
+            {/* In-drawer Breaking Alerts banner */}
+            <div className="flex items-center justify-between border-b border-border bg-surface/60 px-4 py-3">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-background border border-border">
+                  {enabled ? (
+                    <BellRing className="h-4 w-4 text-gf-red" />
+                  ) : (
+                    <Bell className="h-4 w-4 text-gf-gold" />
+                  )}
+                </div>
+                <div>
+                  <div className="font-mono text-[11px] font-bold uppercase tracking-[0.12em]">
+                    Breaking Alerts
+                  </div>
+                  <div className="text-[11px] text-muted-foreground">
+                    {enabled ? "Notifications active" : "Get instant notifications"}
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={toggle}
+                className={`rounded px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.1em] transition-colors ${
+                  enabled
+                    ? "bg-gf-red text-primary-foreground"
+                    : "border border-border bg-background text-foreground hover:border-gf-gold"
+                }`}
+              >
+                {enabled ? "On" : "Enable"}
+              </button>
+            </div>
+
+            <nav className="grid grid-cols-2 gap-px bg-border max-h-[50vh] overflow-y-auto">
               {PRIMARY_NAV.map((item) =>
                 "to" in item ? (
                   <Link
@@ -82,18 +115,16 @@ export function MobileTabBar() {
           <Search className="h-5 w-5" />
           Search
         </button>
-        {permission !== "unsupported" && (
-          <button
-            type="button"
-            onClick={toggle}
-            disabled={permission === "denied"}
-            aria-pressed={enabled}
-            className={itemClass(enabled)}
-          >
-            {enabled ? <BellRing className="h-5 w-5" /> : <Bell className="h-5 w-5" />}
-            Alerts
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={toggle}
+          aria-pressed={enabled}
+          aria-label={enabled ? "Turn off breaking alerts" : "Turn on breaking alerts"}
+          className={itemClass(enabled)}
+        >
+          {enabled ? <BellRing className="h-5 w-5 text-gf-red" /> : <Bell className="h-5 w-5" />}
+          Alerts
+        </button>
       </nav>
     </>
   );
