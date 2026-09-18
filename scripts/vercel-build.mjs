@@ -29,10 +29,39 @@ fs.cpSync(path.join(root, "dist", "client"), path.join(out, "static"), {
   recursive: true,
 });
 
-// SSR function bundle
-fs.cpSync(path.join(root, "dist", "server"), path.join(fn, "server"), {
-  recursive: true,
-});
+// SSR function bundle — use esbuild to bundle server.js with all its
+// node_module dependencies (e.g. h3-v2) inlined so the function is fully
+// self-contained and doesn't need node_modules at runtime on Vercel.
+fs.mkdirSync(path.join(fn, "server"), { recursive: true });
+execSync(
+  [
+    "npx esbuild",
+    path.join(root, "dist", "server", "server.js"),
+    "--bundle",
+    "--platform=node",
+    "--format=esm",
+    `--outfile=${path.join(fn, "server", "server.js")}`,
+    "--packages=bundle",
+    "--external:node:*",
+    "--external:async_hooks",
+    "--external:events",
+    "--external:stream",
+    "--external:buffer",
+    "--external:util",
+    "--external:url",
+    "--external:path",
+    "--external:fs",
+    "--external:os",
+    "--external:crypto",
+    "--external:http",
+    "--external:https",
+    "--external:net",
+    "--external:tls",
+    "--external:zlib",
+    "--log-level=info",
+  ].join(" "),
+  { stdio: "inherit", cwd: root }
+);
 
 fs.writeFileSync(
   path.join(fn, "index.mjs"),
