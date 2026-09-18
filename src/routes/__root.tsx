@@ -13,6 +13,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SplashScreen } from "@/components/site/SplashScreen";
+import { MobileGestures } from "@/components/site/MobileGestures";
+import { MobileTabBar } from "@/components/site/MobileTabBar";
 
 import appCss from "../styles.css?url";
 
@@ -88,13 +90,16 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SplashScreen />
-      <div className="flex min-h-screen flex-col w-full max-w-full overflow-x-hidden">
-        <SiteHeader />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <SiteFooter />
-      </div>
+      <MobileGestures>
+        <div className="flex min-h-screen flex-col w-full max-w-full overflow-x-hidden pb-16 lg:pb-0">
+          <SiteHeader />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
+      </MobileGestures>
+      <MobileTabBar />
       <Toaster position="bottom-right" />
     </QueryClientProvider>
   );
