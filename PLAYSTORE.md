@@ -10,7 +10,7 @@ site, so content updates without a new store release.
 
 1. Publish the web app (or deploy it to the client's own domain).
 2. Open `capacitor.config.ts` and set `server.url` to the final production URL.
-   Today it is `https://ghanafeed.lovable.app`.
+   It is set to `https://ghanafeed-one.vercel.app`.
 3. You need on your machine: Node 20+, Java 17 (JDK), Android Studio.
 
 ## 2. Create the Android project

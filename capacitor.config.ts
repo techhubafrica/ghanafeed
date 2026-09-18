@@ -11,7 +11,7 @@ const config: CapacitorConfig = {
   appName: "GhanaFeed",
   webDir: "dist/client",
   server: {
-    url: "https://ghanafeed.lovable.app",
+    url: "https://ghanafeed-one.vercel.app",
     cleartext: false,
     androidScheme: "https",
   },
