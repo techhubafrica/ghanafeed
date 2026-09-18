@@ -42,22 +42,12 @@ execSync(
     "--format=esm",
     `--outfile=${path.join(fn, "server", "server.js")}`,
     "--packages=bundle",
+    // Only keep node:* externals — bare names (util, stream, etc.) must NOT
+    // be external because CJS packages like react-dom use require('util')
+    // which would fail in ESM. The banner below provides a CJS-compatible
+    // require() shim so those calls resolve correctly at runtime.
     "--external:node:*",
-    "--external:async_hooks",
-    "--external:events",
-    "--external:stream",
-    "--external:buffer",
-    "--external:util",
-    "--external:url",
-    "--external:path",
-    "--external:fs",
-    "--external:os",
-    "--external:crypto",
-    "--external:http",
-    "--external:https",
-    "--external:net",
-    "--external:tls",
-    "--external:zlib",
+    `--banner:js="import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);"`,
     "--log-level=info",
   ].join(" "),
   { stdio: "inherit", cwd: root }
