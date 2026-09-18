@@ -189,37 +189,8 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className="border-b border-border bg-surface lg:hidden">
-          <nav className="grid grid-cols-2 gap-px bg-border">
-            {PRIMARY_NAV.map((item) =>
-              "to" in item ? (
-                <Link key={item.label} to="/" className="bg-surface px-4 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em]">
-                  {item.label}
-                </Link>
-              ) : (
-                <Link
-                  key={item.label}
-                  to="/c/$slug"
-                  params={{ slug: item.slug }}
-                  className="bg-surface px-4 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em]"
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
-            <a
-              href={EXTERNAL_LINKS.advertise}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="col-span-2 bg-gf-red px-4 py-3 text-center font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground"
-            >
-              Advertise with us
-            </a>
-          </nav>
-        </div>
-      )}
+      {/* Mobile section tabs */}
+      <MobileSectionTabs />
 
       <NewsTicker items={breaking} />
     </header>
