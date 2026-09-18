@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Facebook, Linkedin, Mail, Menu, Phone, Search, X, Youtube } from "lucide-react";
+import { Facebook, Linkedin, Mail, Phone, Search, X, Youtube } from "lucide-react";
 import { Wordmark } from "./Wordmark";
 import { AlertsToggle } from "./AlertsToggle";
+import { MobileSectionTabs } from "./MobileSectionTabs";
 
 import { NewsTicker } from "./NewsTicker";
 import { homeFeedQuery } from "@/lib/ghanafeed.queries";
 import { EXTERNAL_LINKS, PRIMARY_NAV } from "@/lib/ghanafeed";
 
 export function SiteHeader() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   
@@ -86,15 +86,6 @@ export function SiteHeader() {
       {/* Masthead */}
       <div className="border-b border-border bg-background py-2.5">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 sm:px-6">
-          <button
-            className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gf-gold hover:text-foreground lg:hidden"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
-
           <Wordmark />
 
           <nav className="ml-6 hidden flex-1 items-center gap-5 xl:flex">
